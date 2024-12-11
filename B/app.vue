@@ -1,13 +1,23 @@
 <template>
-  <UContainer>
-    <UCard class="mt-10">
-      <template #header>
-        <div class="flex justify-between">
-          <h1>Welcome to Nuxt UI Starter</h1>
-          <ColorScheme><USelect v-model="$colorMode.preference" :options="['system', 'light', 'dark']" /></ColorScheme>
-        </div>
-      </template>
-      <UButton icon="i-heroicons-book-open" to="https://ui.nuxt.com" target="_blank">Open Nuxt UI Documentation</UButton>
-    </UCard>
-  </UContainer>
+  <MglMap :data="data" :map-style="style" :center="center" :zoom="zoom" width="100vw" height="100vh">
+    <MglNavigationControl />
+    <MglGeoJsonSource source-id="geojson" :data="data">
+      <MglCircleLayer
+        layer-id="geojson"
+        :paint="{
+          'circle-color': 'red',
+          'circle-opacity': 1,
+          'circle-radius': 6,
+        }"
+      />
+    </MglGeoJsonSource>
+  </MglMap>
 </template>
+
+<script setup>
+import { data } from "./data";
+
+const style = "https://api.maptiler.com/maps/streets/style.json?key=cQX2iET1gmOW38bedbUh";
+const center = [107.6689, -6.9175];
+const zoom = 8;
+</script>
